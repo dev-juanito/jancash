@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JANCASH — Finanzas personales</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo">J</div>
+        <div>
+          <h1>JANCASH</h1>
+          <div class="muted">Manejo inteligente de finanzas personales</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div id="userWelcome" class="muted small">No autenticado</div>
+        <button id="logoutBtn" class="btn secondary" style="display:none">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="card auth" id="sidebar">
+      <div id="authSection">
+        <h2>Acceder / Registrarse</h2>
+        <div class="auth-forms" id="authForms">
+          <!-- LOGIN -->
+          <form id="loginForm" class="form">
+            <h3>Iniciar sesión</h3>
+            <label>Usuario<input type="text" id="loginUser" required /></label>
+            <label>Contraseña<input type="password" id="loginPass" required /></label>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" class="btn">Entrar</button>
+              <button type="button" id="showRegister" class="btn secondary">Registrar</button>
+            </div>
+          </form>
+
+          <!-- REGISTER -->
+          <form id="registerForm" class="form" style="display:none">
+            <h3>Registrar</h3>
+            <label>Usuario<input type="text" id="regUser" required /></label>
+            <label>Contraseña<input type="password" id="regPass" required /></label>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" class="btn">Registrar</button>
+              <button type="button" id="showLogin" class="btn secondary">Volver</button>
+            </div>
+          </form>
+        </div>
+        <p class="muted small">Para pruebas: los datos se guardan en tu navegador (localStorage).</p>
+      </div>
+
+      <nav class="side" id="navPanel" style="margin-top:12px;display:none">
+        <button data-page="dashboard" class="active">Panel principal</button>
+        <button data-page="movimientos">Movimientos</button>
+        <button data-page="metas">Metas</button>
+        <button data-page="educacion">Educación financiera</button>
+        <button data-page="about">Nosotros</button>
+      </nav>
+
+      <div style="margin-top:14px">
+        <div class="balance">
+          <div class="muted">Saldo disponible</div>
+          <div class="big" id="balanceDisplay">$0</div>
+          <div class="pills">
+            <div class="pill" id="totalIncome">Ingresos: $0</div>
+            <div class="pill" id="totalExpenses">Gastos: $0</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="card main" id="mainContent">
+      <section id="page-dashboard">
+        <h2>Panel principal</h2>
+        <div class="grid-2">
+          <div>
+            <div class="card">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div>
+                  <div class="muted small">Balance mensual</div>
+                  <div class="big" id="monthlyBalance">$0</div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px">
+                <div style="display:flex;gap:8px;align-items:center">
+                  <select id="txType">
+                    <option value="in">Ingreso</option>
+                    <option value="out">Gasto</option>
+                  </select>
+                  <input id="txDesc" placeholder="Descripción" type="text" />
+                  <input id="txAmount" placeholder="Monto" type="number" min="0" />
+                  <button id="addTxBtn" class="btn">Agregar</button>
+                </div>
+
+                <div class="transactions" id="transactionsList"></div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h4 class="muted">Metas rápidas</h4>
+              <div id="goalsList"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <h4 class="muted">Reportes</h4>
+              <div class="chart-wrap">
+                <canvas id="pieChart" width="300" height="200"></canvas>
+                <canvas id="barChart" width="180" height="140"></canvas>
+              </div>
+              <div id="alertsArea"></div>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <h4 class="muted">Acciones</h4>
+              <button id="exportBtn" class="btn secondary">Exportar datos</button>
+              <button id="clearDataBtn" class="btn secondary">Borrar datos locales</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-movimientos" style="display:none">
+        <h2>Movimientos</h2>
+        <div class="card">
+          <label>Buscar: <input id="searchTx" type="text" placeholder="Ej. mercado, Netflix..." /></label>
+          <div class="transactions" id="transactionsFull"></div>
+        </div>
+      </section>
+
+      <section id="page-metas" style="display:none">
+        <h2>Metas financieras</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h4>Crear meta</h4>
+            <label>Nombre<input id="goalName" type="text" /></label>
+            <label>Monto objetivo<input id="goalTarget" type="number" /></label>
+            <label>Ahorro actual<input id="goalCurrent" type="number" value="0" /></label>
+            <button id="createGoalBtn" class="btn">Crear meta</button>
+            <div id="allGoalsArea"></div>
+          </div>
+          <div class="card">
+            <h4>Consejos de ahorro</h4>
+            <ul>
+              <li>Usa la regla 50-30-20.</li>
+              <li>Automatiza transferencias a ahorro.</li>
+              <li>Evita gastos pequeños innecesarios.</li>
+              <li>Define metas alcanzables.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-educacion" style="display:none">
+        <h2>Educación financiera</h2>
+        <div class="card">
+          <p><strong>Presupuesto:</strong> controla tus ingresos y egresos.</p>
+          <p><strong>Fondo de emergencia:</strong> ten un ahorro equivalente a 3 meses de gastos.</p>
+          <p><strong>Deudas:</strong> paga las de alto interés primero.</p>
+        </div>
+      </section>
+
+      <section id="page-about" style="display:none">
+        <h2>Nosotros</h2>
+        <div class="card">
+          <h4>Misión</h4>
+          <p>Diseñar una plataforma accesible que ayude a las personas a manejar sus finanzas de forma inteligente.</p>
+          <h4>Visión</h4>
+          <p>Ser una herramienta líder en educación y gestión financiera en Colombia.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>Proyecto JANCASH — Demo funcional</footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
