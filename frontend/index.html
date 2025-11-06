@@ -11,7 +11,7 @@
     <header class="card">
       <div style="display:flex;align-items:center;gap:12px">
         <div class="logo">
-          <img src="jancash.png" alt="Logo" class="logo-img">
+          <img src="./assets/jancash.png" alt="Logo" class="logo-img">
         </div>
         <div>
           <h1>JANCASH</h1>
@@ -32,7 +32,7 @@
           <!-- LOGIN -->
           <form id="loginForm" class="form">
             <h3>Iniciar sesión</h3>
-            <label>Usuario<input type="text" id="loginUser" required /></label>
+            <label>Correo<input type="text" id="loginUser" required /></label>
             <label>Contraseña<input type="password" id="loginPass" required /></label>
             <div style="display:flex;gap:8px;margin-top:8px">
               <button type="submit" class="btn">Entrar</button>
@@ -43,8 +43,10 @@
           <!-- REGISTER -->
           <form id="registerForm" class="form" style="display:none">
             <h3>Registrar</h3>
-            <label>Usuario<input type="text" id="regUser" required /></label>
+            <label>Nombre completo<input type="text" id="regName" required /></label>
+            <label>Correo<input type="email" id="regEmail" required /></label>
             <label>Contraseña<input type="password" id="regPass" required /></label>
+            <label>Numero Telefonico<input type="tel" id="regPhone" required /></label>
             <div style="display:flex;gap:8px;margin-top:8px">
               <button type="submit" class="btn">Registrar</button>
               <button type="button" id="showLogin" class="btn secondary">Volver</button>
@@ -172,5 +174,6 @@
   </div>
 
   <script src="script.js"></script>
+  <script type="module" src="./logica/index.js"></script>
 </body>
 </html>
