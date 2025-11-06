@@ -1,5 +1,5 @@
 /* ======================================================
-   JANCASH - Aplicación de finanzas personales (localStorage)
+   JANCASH - Aplicación de finanzas personales 
    ====================================================== */
 
    const storage = {
@@ -31,41 +31,7 @@
     loginForm.style.display = 'block'; 
   };
   
-  /* --- manejo de usuarios --- */
-  function loadUsers() {
-    try { return JSON.parse(localStorage.getItem(storage.usersKey) || '[]'); }
-    catch (e) { return []; }
-  }
-  function saveUsers(users) {
-    localStorage.setItem(storage.usersKey, JSON.stringify(users));
-  }
-  
-  /* --- registro de usuario --- */
-  registerForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const u = $('#regUser').value.trim(),
-          p = $('#regPass').value;
-    if (!u || !p) return alert('Completa usuario y contraseña');
-    const users = loadUsers();
-    if (users.find(x => x.user === u)) return alert('Usuario ya existe');
-    users.push({ user: u, pass: p });
-    saveUsers(users);
-    alert('Registrado con éxito. Ahora inicia sesión.');
-    registerForm.reset();
-    showLogin.click();
-  });
-  
-  /* --- inicio de sesión --- */
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const u = $('#loginUser'). value.trim(),
-          p = $('#loginPass').value;
-    const users = loadUsers();
-    const found = users.find(x => x.user === u && x.pass === p);
-    if (!found) return alert('Usuario o contraseña incorrectos');
-    localStorage.setItem(storage.currentKey, u);
-    bootForUser(u);
-  });
+
   
   /* --- cerrar sesión --- */
   logoutBtn.addEventListener('click', () => {
@@ -404,40 +370,4 @@
     const currentUser = localStorage.getItem(storage.currentKey);
     if (currentUser) renderDashboard();
   });
-  // Obtener gastos
-  fetch('/api/gastos')
-    .then(res => res.json())
-    .then(data => {
-      console.log('Gastos:', data);
-    });
   
-  // Enviar nuevo gasto
-  fetch('/api/gastos', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      usuario_id: 1,
-      monto: 50000,
-      descripcion: 'Compra en supermercado'
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log('Gasto guardado:', data);
-  });
-  document.querySelector('#addTxBtn').addEventListener('click', () => {
-  const tipo = document.querySelector('#txType').value;
-  const descripcion = document.querySelector('#txDesc').value;
-  const monto = parseFloat(document.querySelector('#txAmount').value);
-
-  fetch('/api/gastos', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tipo, descripcion, monto })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log('Gasto guardado:', data);
-    // Aquí puedes actualizar la interfaz
-  });
-});
