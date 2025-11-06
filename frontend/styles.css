@@ -1,10 +1,11 @@
 :root {
     --bg: #f4f7fb;
-    --card: #ffffff;
+    --card: linear-gradient(0deg,rgba(34, 195, 82, 0.86) 0%, rgba(139, 45, 253, 0.76) 100%);
     --accent: #0f62fe;
     --accent-2: #00a86b;
-    --muted: #6b7280;
+    --muted: floralwhite;
     --danger: #ef4444;
+    --main-color: #460647;
     font-family: "Inter", system-ui, sans-serif;
   }
   
@@ -18,7 +19,7 @@
   /* Cuerpo general */
   body {
     background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 100%);
-    color: #0b1220;
+    color: var(--main-color);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -26,22 +27,81 @@
   }
   
   /* Contenedor principal */
-  .container {
-    width: 1100px;
-    max-width: 96%;
-    display: grid;
-    grid-template-columns: 360px 1fr;
+  .main-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
   }
   
+  .sections-container {
+      display: flex;
+      gap: 20px;
+      height: 70%;
+    }
+  
+  /* Tarjeta de introducción */
+
+.card-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 6px 24px rgba(11, 18, 32, 0.06);
+
+    tittle {
+      font-size: 24px;
+      font-weight: 600;
+      color: cornsilk;
+    }
+
+    p {
+      font-size: 18px;
+      color: var(--muted);
+      text-align: center;
+    }
+  }
+
   /* Tarjetas */
   .card {
     background: var(--card);
     border-radius: 14px;
-    padding: 18px;
-    box-shadow: 0 6px 24px rgba(11, 18, 32, 0.06);
+    padding: 20px;
+    width: 100%;
+  }
+
+  .inside-card {
+    background: var(--muted);
+    border-radius: 14px;
+    padding: 20px;
   }
   
+  .card-auth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    flex-shrink: 0;
+
+    h3, label {
+      color: var(--muted);
+    }
+  }
+
+  .mainMenu {
+    height: 100%;
+    button {
+      color: var(--muted);
+      font-size: 18px;
+    }
+    button:hover {
+      background: rgb(0 2 4 / 8%);
+    }
+  }
+
   header.card {
     grid-column: 1 / -1;
     display: flex;
@@ -87,7 +147,7 @@
   
   /* Botones */
   .btn {
-    background: var(--accent);
+    background: var(--main-color);
     color: white;
     border: none;
     padding: 8px 12px;
@@ -96,9 +156,8 @@
   }
   
   .btn.secondary {
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid rgba(15, 98, 254, 0.2);
+    background: var(--main-color);
+    color: var(--muted);
   }
   
   /* Formularios */
@@ -134,7 +193,7 @@
   }
   
   nav.side button.active {
-    background: rgba(15, 98, 254, 0.08);
+    font-weight: bold;
   }
   
   /* Balance y etiquetas */
@@ -205,6 +264,13 @@
     color: var(--muted);
     margin-top: 8px;
     font-size: 13px;
+  }
+
+  .tituloSeccion{
+    font-size: 30px;
+    font-weight: 600;
+    color: cornsilk;
+    margin-bottom: 12px;
   }
   
   /* Responsivo */
