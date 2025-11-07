@@ -46,7 +46,7 @@
                 </div>
   
                 <div style="margin-top:12px">
-                  <div style="display:flex;gap:8px;align-items:center">
+                  <form id="movimientosForm" style="display:flex;gap:8px;align-items:center">
                     <select id="txType">
                       <option value="1">Ingreso</option>
                       <option value="2">Gasto</option>
@@ -54,7 +54,7 @@
                     <input id="txDesc" placeholder="Descripción" type="text" />
                     <input id="txAmount" placeholder="Monto" type="number" min="0" />
                     <button type="submut" class="btn">Agregar</button>
-                  </div>
+                  </form>
                   <div class="transactions" id="transactionsList"></div>
                 </div>
               </div>

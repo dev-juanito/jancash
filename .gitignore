@@ -23,3 +23,6 @@ node_modules/
 
 # Ignora todos los archivos .tmp en cualquier subdirectorio
 */tmp/.tmp
+
+frontend/package-lock.json
+backend/package-lock.json

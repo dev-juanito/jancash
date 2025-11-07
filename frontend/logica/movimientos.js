@@ -30,7 +30,7 @@ export const movimientosUsuario = async () => {
   });
 }
   
-  // Enviar nuevo gasto
+// Enviar nuevo gasto
 movimientosForm.addEventListener('submit', async e => {
   e.preventDefault();
 
@@ -49,22 +49,3 @@ movimientosForm.addEventListener('submit', async e => {
     console.error('Error al guardar el movimiento:', err);
   }
 });
-
-    // const list = $('#transactionsList'); list.innerHTML = '';
-    // movimientosUsuario.forEach(tx => {
-    //   console.log(tx);
-      // const div = document.createElement('div');
-      // div.className = 'tx ' + (tx.type === 'in' ? 'in' : 'out');
-      // div.innerHTML = `
-      //   <div>
-      //     <strong>${tx.desc}</strong>
-      //     <div class="muted small">${new Date(tx.date).toLocaleString()}</div>
-      //   </div>
-      //   <div style="text-align:right">
-      //     <div>${currency(tx.amt)}</div>
-      //     <div style="margin-top:6px">
-      //       <button data-id="${tx.id}" class="btn secondary small delTx">Eliminar</button>
-      //     </div>
-      //   </div>`;
-      // list.appendChild(div);
-    // });
