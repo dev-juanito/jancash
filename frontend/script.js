@@ -271,7 +271,7 @@
   
   function renderAlerts(u, totalIncome, totalOut, txs) {
     const alertsArea = $('#alertsArea');
-    alertsArea.innerHTML = '';
+    alertsArea.innerHTML = '';  
     if (totalOut > totalIncome && totalOut > 0) {
       alertsArea.innerHTML = `<div class="card" style="margin-top:8px;border-left:4px solid var(--danger);padding:8px">
         <strong>Alerta:</strong> Tus gastos superan tus ingresos.</div>`;
@@ -285,83 +285,83 @@
      EXPORTAR / BORRAR DATOS
      ====================================================== */
   
-  $('#exportBtn').addEventListener('click', () => {
-    const u = localStorage.getItem(storage.currentKey);
-    if (!u) return alert('Inicia sesión');
-    const data = { txs: loadTxs(u), goals: loadGoals(u) };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `jancash_export_${u}.json`; a.click();
-    URL.revokeObjectURL(url);
-  });
+  // $('#exportBtn').addEventListener('click', () => {
+  //   const u = localStorage.getItem(storage.currentKey);
+  //   if (!u) return alert('Inicia sesión');
+  //   const data = { txs: loadTxs(u), goals: loadGoals(u) };
+  //   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement('a');
+  //   a.href = url; a.download = `jancash_export_${u}.json`; a.click();
+  //   URL.revokeObjectURL(url);
+  // });
   
-  $('#clearDataBtn').addEventListener('click', () => {
-    const u = localStorage.getItem(storage.currentKey);
-    if (!u) return;
-    if (!confirm('¿Borrar todos tus datos locales?')) return;
-    saveTxs(u, []); saveGoals(u, []);
-    renderDashboard(); renderGoals();
-    alert('Datos borrados correctamente.');
-  });
+  // $('#clearDataBtn').addEventListener('click', () => {
+  //   const u = localStorage.getItem(storage.currentKey);
+  //   if (!u) return;
+  //   if (!confirm('¿Borrar todos tus datos locales?')) return;
+  //   saveTxs(u, []); saveGoals(u, []);
+  //   renderDashboard(); renderGoals();
+  //   alert('Datos borrados correctamente.');
+  // });
   
   /* ======================================================
      GRÁFICOS SIMPLES (Canvas)
      ====================================================== */
   
-  function drawPie(canvasId, txs) {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const income = txs.filter(t => t.type === 'in').reduce((s, t) => s + t.amt, 0);
-    const out = txs.filter(t => t.type === 'out').reduce((s, t) => s + t.amt, 0);
-    const total = income + out;
-    const cx = canvas.width / 2, cy = canvas.height / 2, r = Math.min(cx, cy) - 8;
-    let start = -Math.PI / 2;
-    const slices = [
-      { v: income, color: '#00a86b', label: 'Ingresos' },
-      { v: out, color: '#ef4444', label: 'Gastos' }
-    ].filter(s => s.v > 0);
+  // function drawPie(canvasId, txs) {
+  //   const canvas = document.getElementById(canvasId);
+  //   if (!canvas) return;
+  //   const ctx = canvas.getContext('2d');
+  //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //   const income = txs.filter(t => t.type === 'in').reduce((s, t) => s + t.amt, 0);
+  //   const out = txs.filter(t => t.type === 'out').reduce((s, t) => s + t.amt, 0);
+  //   const total = income + out;
+  //   const cx = canvas.width / 2, cy = canvas.height / 2, r = Math.min(cx, cy) - 8;
+  //   let start = -Math.PI / 2;
+  //   const slices = [
+  //     { v: income, color: '#00a86b', label: 'Ingresos' },
+  //     { v: out, color: '#ef4444', label: 'Gastos' }
+  //   ].filter(s => s.v > 0);
   
-    if (slices.length === 0) {
-      ctx.fillStyle = '#e5e7eb';
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#6b7280';
-      ctx.font = '14px sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText('Sin datos', cx, cy);
-      return;
-    }
+  //   if (slices.length === 0) {
+  //     ctx.fillStyle = '#e5e7eb';
+  //     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+  //     ctx.fillStyle = '#6b7280';
+  //     ctx.font = '14px sans-serif'; ctx.textAlign = 'center';
+  //     ctx.fillText('Sin datos', cx, cy);
+  //     return;
+  //   }
   
-    slices.forEach(s => {
-      const angle = (s.v / total) * Math.PI * 2;
-      ctx.beginPath(); ctx.moveTo(cx, cy);
-      ctx.fillStyle = s.color;
-      ctx.arc(cx, cy, r, start, start + angle);
-      ctx.closePath(); ctx.fill();
-      start += angle;
-    });
-  }
+  //   slices.forEach(s => {
+  //     const angle = (s.v / total) * Math.PI * 2;
+  //     ctx.beginPath(); ctx.moveTo(cx, cy);
+  //     ctx.fillStyle = s.color;
+  //     ctx.arc(cx, cy, r, start, start + angle);
+  //     ctx.closePath(); ctx.fill();
+  //     start += angle;
+  //   });
+  // }
   
-  function drawBar(canvasId, inc, out) {
-    const c = document.getElementById(canvasId);
-    if (!c) return;
-    const ctx = c.getContext('2d');
-    ctx.clearRect(0, 0, c.width, c.height);
-    const max = Math.max(inc, out, 1);
-    const w = c.width, h = c.height;
-    const pad = 12, bw = 50;
-    const incH = (inc / max) * (h - pad * 2);
-    const outH = (out / max) * (h - pad * 2);
-    ctx.fillStyle = '#00a86b';
-    ctx.fillRect(pad, h - pad - incH, bw, incH);
-    ctx.fillStyle = '#ef4444';
-    ctx.fillRect(pad + bw + 20, h - pad - outH, bw, outH);
-    ctx.fillStyle = '#0b1220';
-    ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('Ingresos', pad + bw / 2, h - 2);
-    ctx.fillText('Gastos', pad + bw + 20 + bw / 2, h - 2);
-  }
+  // function drawBar(canvasId, inc, out) {
+  //   const c = document.getElementById(canvasId);
+  //   if (!c) return;
+  //   const ctx = c.getContext('2d');
+  //   ctx.clearRect(0, 0, c.width, c.height);
+  //   const max = Math.max(inc, out, 1);
+  //   const w = c.width, h = c.height;
+  //   const pad = 12, bw = 50;
+  //   const incH = (inc / max) * (h - pad * 2);
+  //   const outH = (out / max) * (h - pad * 2);
+  //   ctx.fillStyle = '#00a86b';
+  //   ctx.fillRect(pad, h - pad - incH, bw, incH);
+  //   ctx.fillStyle = '#ef4444';
+  //   ctx.fillRect(pad + bw + 20, h - pad - outH, bw, outH);
+  //   ctx.fillStyle = '#0b1220';
+  //   ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
+  //   ctx.fillText('Ingresos', pad + bw / 2, h - 2);
+  //   ctx.fillText('Gastos', pad + bw + 20 + bw / 2, h - 2);
+  // }
   
   /* ======================================================
      SINCRONIZACIÓN ENTRE PESTAÑAS
