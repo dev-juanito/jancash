@@ -63,10 +63,6 @@ update usuarios set estaActivo = false where UsuarioId = 4;
 
 SELECT * from usuarios where estaActivo = true AND UsuarioId = 4;
 
-
-
-
-
 -- Usuarios de ejemplo
 
 

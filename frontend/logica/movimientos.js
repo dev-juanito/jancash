@@ -49,3 +49,29 @@ movimientosForm.addEventListener('submit', async e => {
     console.error('Error al guardar el movimiento:', err);
   }
 });
+
+export const buscarTipoMovimiento = async (nombreMovimiento) => {
+  const resultado = await con.getData(`busquedamovimientos?idUsuarioLogeado=${state.idUsuarioLogeado}&nombreMovimiento=${nombreMovimiento}`);
+  const list = $('#transactionsFull'); list.innerHTML = '';
+  resultado.forEach(mov => {
+  const div = document.createElement('div');
+      div.className = 'tx' + (mov.tipoMovimiento === 'Ingreso' ? 'in' : 'out');
+      div.innerHTML = `
+        <div>
+          <strong>${mov.nombreMovimiento}</strong>
+          <div class="muted small">${new Date(mov.fechaMovimiento).toLocaleString()}</div>
+        </div>
+        <div style="text-align:right">
+          <div>${currency(mov.valorMovimiento)}</div>
+          <div style="margin-top:6px">
+            <button data-id="${mov.id}" class="btn secondary small delTx">Eliminar</button>
+          </div>
+        </div>`;
+      list.appendChild(div);
+  });
+}
+
+document.getElementById("searchTx").addEventListener("keyup", function(event) {
+  buscarTipoMovimiento(event.target.value);
+});
+

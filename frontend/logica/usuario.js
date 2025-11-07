@@ -1,6 +1,6 @@
 import Conexion from "./Conexion.js";
 import { state } from "./variablesGlobales.js";
-import { movimientosUsuario } from "./movimientos.js";
+import { movimientosUsuario, buscarTipoMovimiento } from "./movimientos.js";
 const validarUsuario = async (usuario, contrasenia) => {
   let resultado = await con.getData(`auth?usuario=${usuario}&contrasenia=${contrasenia}`);
   return resultado;
@@ -37,12 +37,12 @@ loginForm.addEventListener('submit', async e => {
           p = $('#loginPass').value;
 
     try {
-        debugger
         await validarUsuario(u, p).then( usuario => {
             if (usuario.length > 0) {
                 bootForUser(usuario[0].NombreCompleto);
                 state.idUsuarioLogeado = usuario[0].UsuarioId;
                 movimientosUsuario();
+                buscarTipoMovimiento('');
             } else {
                 alert('Usuario o contraseña incorrectos');
                 loginForm.reset();

@@ -81,5 +81,25 @@ app.get("/api/movimientosusuario", async (req, res) => {
   }
 });
 
+// ruta para buscar movimientos por usuario y nombre
+app.get("/api/busquedamovimientos", async (req, res) => {
+  const { idUsuarioLogeado, nombreMovimiento } = req.query;
+  try {
+    const [rows] = await db.query(
+      "SELECT tm.Id as idGasto, tm.Nombre as tipoMovimiento, m.Id as idMovimiento, m.Nombre as nombreMovimiento, m.Gasto as valorMovimiento, m.Fecha as fechaMovimiento FROM movimientos m inner join tipoMovimiento tm on m.tipogasto = tm.Id inner join usuarios u on m.fkusuarios = u.UsuarioId where u.UsuarioId = ? AND m.Nombre like '%' ? '%'",
+      [idUsuarioLogeado, nombreMovimiento]
+    );
+
+    if (rows.length > 0) {
+      res.json(rows);
+    } else {
+      res.json(rows);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error en la consulta de movimientos");
+  }
+});
+
 const PORT = process.env.PORT_BACKEND;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`))
