@@ -31,23 +31,14 @@ export const movimientosUsuario = async () => {
     list.appendChild(div);    
   });
 
-  renderDashboard(resultado);
-}
-
-function renderDashboard(movimientosUsuario) {
-  const totalIncome = movimientosUsuario.filter(t => t.tipoMovimiento === 'Ingreso').reduce((s, t) => s + t.valorMovimiento, 0);
-  const totalOut = movimientosUsuario.filter(t => t.tipoMovimiento === 'Gasto').reduce((s, t) => s + t.valorMovimiento, 0);
-  const balance = totalIncome - totalOut;
-  balanceMensual.textContent = currency(balance);
-
-  // eliminar movimiento
+    // eliminar movimiento
   $all('.delTx').forEach(b => b.addEventListener('click', async() => {
     const idMovimiento = b.getAttribute('data-id');
     if (!idMovimiento) return;
 
     try {
       // build path without leading slash to avoid double-slash issues
-      let path = `movimientos/${encodeURIComponent(idMovimiento)}`;
+      let path = `deleteMovimientos/${encodeURIComponent(idMovimiento)}`;
       // include owner check if available
       if (window.currentUserId || state.idUsuarioLogeado) {
         const owner = window.currentUserId || state.idUsuarioLogeado;
@@ -62,10 +53,18 @@ function renderDashboard(movimientosUsuario) {
     }
   }));
 
+  renderDashboard(resultado);
+}
+
+function renderDashboard(movimientosUsuario) {
+  const totalIncome = movimientosUsuario.filter(t => t.tipoMovimiento === 'Ingreso').reduce((s, t) => s + t.valorMovimiento, 0);
+  const totalOut = movimientosUsuario.filter(t => t.tipoMovimiento === 'Gasto').reduce((s, t) => s + t.valorMovimiento, 0);
+  const balance = totalIncome - totalOut;
+  balanceMensual.textContent = currency(balance);
+
   drawPie('pieChart', movimientosUsuario);
   drawBar('barChart', totalIncome, totalOut);
 }
-
   
 // Enviar nuevo gasto
 movimientosForm.addEventListener('submit', async e => {
