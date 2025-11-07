@@ -11,6 +11,8 @@ let con = new Conexion();
 /* --- elementos principales --- */
 let registerForm = $('#registerForm'),
     loginForm = $('#loginForm'),
+    introSection = $('#introSection'),
+    mainSection = $('#mainContent'),
     showRegister = $('#showRegister'),
     showLogin = $('#showLogin'),
     navPanel = $('#navPanel'),
@@ -19,6 +21,8 @@ let registerForm = $('#registerForm'),
 
 function bootForUser(user) {
     $('#authSection').style.display = 'none';
+    introSection.style.display = 'none';
+    mainSection.style.display = 'block';
     navPanel.style.display = 'flex';
     userWelcome.textContent = `Hola, ${user}`;
     logoutBtn.style.display = 'inline-block';
