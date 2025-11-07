@@ -74,7 +74,6 @@
         </div>
       </div>
     </aside>
-
     <!-- Main content -->
     <main class="card main" id="mainContent">
       <section id="page-dashboard">
@@ -90,15 +89,15 @@
               </div>
 
               <div style="margin-top:12px">
-                <div style="display:flex;gap:8px;align-items:center">
+                <form id="movimientosForm" style="display:flex;gap:8px;align-items:center">
                   <select id="txType">
-                    <option value="in">Ingreso</option>
-                    <option value="out">Gasto</option>
+                    <option value="1">Ingreso</option>
+                    <option value="2">Gasto</option>
                   </select>
                   <input id="txDesc" placeholder="Descripción" type="text" />
                   <input id="txAmount" placeholder="Monto" type="number" min="0" />
-                  <button id="addTxBtn" class="btn">Agregar</button>
-                </div>
+                  <button type="submit" class="btn">Agregar</button>
+                </form>
 
                 <div class="transactions" id="transactionsList"></div>
               </div>
