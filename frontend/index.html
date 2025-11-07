@@ -38,25 +38,21 @@
           <div class="grid-2">
             <div>
               <div class="inside-card">
-                <div style="display:flex;align-items:center;justify-content:space-between">
-                  <div>
-                    <div class="muted small">Balance mensual</div>
-                    <div class="big" id="monthlyBalance">$0</div>
-                  </div>
+                <div style="display:flex;flex-direction:column;justify-content:space-between">
+                  <div class="small">Balance mensual</div>
+                  <div class="big" id="monthlyBalance"></div>
                 </div>
   
-                <div style="margin-top:12px">
-                  <form id="movimientosForm" style="display:flex;gap:8px;align-items:center">
-                    <select id="txType">
-                      <option value="1">Ingreso</option>
-                      <option value="2">Gasto</option>
-                    </select>
-                    <input id="txDesc" placeholder="Descripción" type="text" />
-                    <input id="txAmount" placeholder="Monto" type="number" min="0" />
-                    <button type="submut" class="btn">Agregar</button>
-                  </form>
-                  <div class="transactions" id="transactionsList"></div>
-                </div>
+                <form id="movimientosForm" style="display:flex;gap:8px;align-items:center">
+                  <select id="txType">
+                    <option value="1">Ingreso</option>
+                    <option value="2">Gasto</option>
+                  </select>
+                  <input id="txDesc" placeholder="Descripción" type="text" />
+                  <input id="txAmount" placeholder="Monto" type="number" min="0" />
+                  <button type="submut" class="btn">Agregar</button>
+                </form>
+                <div class="transactions" id="transactionsList"></div>
               </div>
   
               <div class="inside-card" style="margin-top:12px">
@@ -67,18 +63,12 @@
   
             <div>
               <div class="inside-card">
-                <h4 class="muted">Reportes</h4>
+                <h4>Reportes</h4>
                 <div class="chart-wrap">
-                  <canvas id="pieChart" width="300" height="200"></canvas>
-                  <canvas id="barChart" width="180" height="140"></canvas>
+                  <canvas id="pieChart" width="150" height="150"></canvas>
+                  <canvas id="barChart" width="150" height="150"></canvas>
                 </div>
                 <div id="alertsArea"></div>
-              </div>
-  
-              <div class="inside-card" style="margin-top:12px">
-                <h4 class="muted">Acciones</h4>
-                <button id="exportBtn" class="btn secondary">Exportar datos</button>
-                <button id="clearDataBtn" class="btn secondary">Borrar datos locales</button>
               </div>
             </div>
           </div>
@@ -130,7 +120,7 @@
       <!-- Sidebar -->
       <aside class="card card-auth" id="sidebar">
         <div id="authSection">
-          <h2>Acceder / Registrarse</h2>
+          <h2 style="margin-bottom: 8px;">Acceder / Registrarse</h2>
           <div class="auth-forms" id="authForms">
             <!-- LOGIN -->
             <form id="loginForm" class="form">
