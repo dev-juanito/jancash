@@ -88,3 +88,29 @@ registerForm.addEventListener('submit', async e => {
 
 });
 
+(function () {
+    const termsLink = document.getElementById('termsLink');
+    const termsModal = document.getElementById('termsModal');
+    const closeBtn = document.getElementById('closeTerms');
+    const acceptBtn = document.getElementById('acceptTerms');
+    const regCheckbox = document.getElementById('regTerms');
+
+    if (!termsLink || !termsModal) return;
+
+    termsLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    termsModal.style.display = 'flex';
+    });
+
+    closeBtn.addEventListener('click', () => termsModal.style.display = 'none');
+    acceptBtn.addEventListener('click', () => {
+    if (regCheckbox) regCheckbox.checked = true;
+    termsModal.style.display = 'none';
+    });
+
+    // cerrar al hacer click fuera del contenido
+    termsModal.addEventListener('click', (e) => {
+    if (e.target === termsModal) termsModal.style.display = 'none';
+    });
+})();
+

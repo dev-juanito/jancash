@@ -54,11 +54,6 @@
                 </form>
                 <div class="transactions" id="transactionsList"></div>
               </div>
-  
-              <div class="inside-card" style="margin-top:12px">
-                <h4 class="muted">Metas rápidas</h4>
-                <div id="goalsList"></div>
-              </div>
             </div>
   
             <div>
@@ -87,10 +82,12 @@
           <div class="grid-2">
             <div class="inside-card">
               <h4>Crear meta</h4>
-              <label>Nombre<input id="goalName" type="text" /></label>
-              <label>Monto objetivo<input id="goalTarget" type="number" /></label>
-              <label>Ahorro actual<input id="goalCurrent" type="number" value="0" /></label>
-              <button id="createGoalBtn" class="btn">Crear meta</button>
+              <form id="metasForm">
+                <label>Nombre<input id="goalName" type="text" /></label>
+                <label>Monto objetivo<input id="goalTarget" type="number" /></label>
+                <label>Ahorro actual<input id="goalCurrent" type="number" value="0" /></label>
+                <button id="createGoalBtn" class="btn">Crear meta</button>
+              </form>
               <div id="allGoalsArea"></div>
             </div>
           </div>
@@ -139,11 +136,31 @@
               <label>Correo<input type="email" id="regEmail" required /></label>
               <label>Contraseña<input type="password" id="regPass" required /></label>
               <label>Numero Telefonico<input type="tel" id="regPhone" required /></label>
+
+              <!-- Aceptación de términos -->
+              <label style="display:grid;grid-template-columns:auto auto;font-size:14px;margin-top:8px;">
+                <input id="regTerms" type="checkbox" required />
+                <span>Acepto los <a href="#" id="termsLink">términos y condiciones</a></span>
+              </label>
+
               <div style="display:flex;gap:8px;margin-top:8px">
                 <button type="submit" class="btn">Registrar</button>
                 <button type="button" id="showLogin" class="btn secondary">Volver</button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <!-- Modal de Términos y Condiciones -->
+        <div id="termsModal" style="display:none;position:fixed;inset:0;z-index:1000;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);">
+          <div style="background:#fff;padding:16px;border-radius:8px;max-width:720px;max-height:80vh;overflow:auto;margin:32px;">
+            <h3>Términos y condiciones</h3>
+            <p>Aquí van los términos y condiciones. Reemplaza este texto por el contenido legal correspondiente.</p>
+            <p>Al aceptar, se marcará automáticamente la casilla de aceptación.</p>
+            <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+              <button id="acceptTerms" class="btn">Aceptar</button>
+              <button id="closeTerms" class="btn secondary">Cerrar</button>
+            </div>
           </div>
         </div>
   
