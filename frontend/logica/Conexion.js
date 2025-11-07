@@ -14,6 +14,7 @@ class Conexion {
       body: JSON.stringify(info),
     });
     const data = await response.json();
+    console.log('respuesta post', data);
     return data;
   }
 }

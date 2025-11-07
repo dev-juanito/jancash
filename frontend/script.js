@@ -83,18 +83,18 @@
      MOVIMIENTOS (ingresos/egresos)
      ====================================================== */
   
-  $('#addTxBtn').addEventListener('click', () => {
-    const type = $('#txType').value,
-          desc = $('#txDesc').value.trim(),
-          amt = parseFloat($('#txAmount').value),
-          u = localStorage.getItem(storage.currentKey);
-    if (!u) return alert('Inicia sesión');
-    if (!desc || !amt || amt <= 0) return alert('Descripción y monto válidos');
-    const tx = { id: Date.now(), type, desc, amt, date: new Date().toISOString() };
-    const txs = loadTxs(u); txs.unshift(tx); saveTxs(u, txs);
-    $('#txDesc').value = ''; $('#txAmount').value = '';
-    renderDashboard();
-  });
+  // $('#addTxBtn').addEventListener('click', () => {
+  //   const type = $('#txType').value,
+  //         desc = $('#txDesc').value.trim(),
+  //         amt = parseFloat($('#txAmount').value),
+  //         u = localStorage.getItem(storage.currentKey);
+  //   if (!u) return alert('Inicia sesión');
+  //   if (!desc || !amt || amt <= 0) return alert('Descripción y monto válidos');
+  //   const tx = { id: Date.now(), type, desc, amt, date: new Date().toISOString() };
+  //   const txs = loadTxs(u); txs.unshift(tx); saveTxs(u, txs);
+  //   $('#txDesc').value = ''; $('#txAmount').value = '';
+  //   renderDashboard();
+  // });
   
   /* --- render principal --- */
   function renderDashboard() {
