@@ -14,7 +14,14 @@ class Conexion {
       body: JSON.stringify(info),
     });
     const data = await response.json();
-    console.log('respuesta post', data);
+    return data;
+  }
+  
+  async deleteData(url) {
+    let response = await fetch(`${this.urlApi}${url}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
     return data;
   }
 }

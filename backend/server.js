@@ -81,5 +81,32 @@ app.get("/api/movimientosusuario", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT_BACKEND;
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`))
+// Ruta para eliminar un movimiento por id
+async function handleDeleteMovimiento(req, res) {
+  const id = req.query.id ?? req.params.id;
+  if (!id) {
+    return res.status(400).json({ success: false, message: "Falta el parámetro id" });
+  }
+  try {
+    const [result] = await db.query("DELETE FROM movimientos WHERE Id = ?", [id]);
+
+    if (result.affectedRows && result.affectedRows > 0) {
+      res.json({ success: true, deletedId: Number(id) });
+    } else {
+      res.status(404).json({ success: false, message: "Movimiento no encontrado" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error al eliminar movimiento");
+  }
+}
+
+app.delete("/api/deleteMovimientos", handleDeleteMovimiento);
+app.delete("/api/deleteMovimientos/:id", handleDeleteMovimiento);
+
+app.get("/api/deleteMovimientos", handleDeleteMovimiento);
+app.get("/api/deleteMovimientos/:id", handleDeleteMovimiento);
+
+// Use a default port if PORT_BACKEND is not set
+const PORT = process.env.PORT_BACKEND || 3308;
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));

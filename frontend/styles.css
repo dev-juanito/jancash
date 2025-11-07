@@ -2,7 +2,7 @@
     --bg: #f4f7fb;
     --card: linear-gradient(0deg,rgba(34, 195, 82, 0.86) 0%, rgba(139, 45, 253, 0.76) 100%);
     --accent: #0f62fe;
-    --accent-2: #00a86b;
+    --accent-2: #008000;
     --muted: floralwhite;
     --danger: #ef4444;
     --main-color: #460647;
@@ -77,6 +77,9 @@
     background: var(--muted);
     border-radius: 14px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
   
   .card-auth {
@@ -218,7 +221,7 @@
   /* Layout de dos columnas */
   .grid-2 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 30%;
     gap: 12px;
   }
   
@@ -237,13 +240,23 @@
     border-radius: 8px;
     margin-bottom: 6px;
   }
-  
-  .tx.in {
-    background: rgba(0, 168, 107, 0.08);
+
+  .txItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 6px;
   }
-  
-  .tx.out {
-    background: rgba(239, 68, 68, 0.08);
+
+  .income {
+    color: var(--accent-2);
+  }
+
+  .expense {
+    color: var(--danger);
   }
   
   /* Metas */
