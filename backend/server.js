@@ -23,7 +23,7 @@ app.get("/api/auth", async (req, res) => {
   const { usuario, contrasenia } = req.query;
   try {
     const [rows] = await db.query(
-      "SELECT UsuarioId, NombreCompleto, Correo FROM usuarios WHERE Correo = ? AND Contraseña = ?",
+      "SELECT UsuarioId, NombreCompleto, Correo FROM usuarios WHERE Correo = ? AND Contraseña = ? AND estaActivo = true",
       [usuario, contrasenia]
     );
 

@@ -37,6 +37,7 @@ loginForm.addEventListener('submit', async e => {
           p = $('#loginPass').value;
 
     try {
+        debugger
         await validarUsuario(u, p).then( usuario => {
             if (usuario.length > 0) {
                 bootForUser(usuario[0].NombreCompleto);
@@ -87,4 +88,3 @@ registerForm.addEventListener('submit', async e => {
     }
 
 });
-
